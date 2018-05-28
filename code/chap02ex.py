@@ -13,6 +13,8 @@ from operator import itemgetter
 import first
 import thinkstats2
 
+import operator
+from collections import OrderedDict
 
 def Mode(hist):
     """Returns the value with the highest frequency.
@@ -21,8 +23,15 @@ def Mode(hist):
 
     returns: value from Hist
     """
-    return 0
+    mode = 0.
+    maxF = 0
 
+    for x,f in hist.Items():
+        if f > maxF:
+            mode = x
+            maxF = f
+
+    return mode
 
 def AllModes(hist):
     """Returns value-freq pairs in decreasing order of frequency.
@@ -31,8 +40,9 @@ def AllModes(hist):
 
     returns: iterator of value-freq pairs
     """
-    return []
-
+    sortedX = sorted( hist.Items(), key = operator.itemgetter(1), reverse = True )
+    
+    return OrderedDict( sortedX )
 
 def main(script):
     """Tests the functions in this module.
